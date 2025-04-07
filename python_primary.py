@@ -322,9 +322,25 @@ def test(a,b='buddy'):
     return a + b
 test(b='hello', a='world')
 
-# 函数入参声明可变参数
+# 函数入参声明可变参数(在python中叫收集参数)
 def test(*params):
     print('共有%d个参数' % len(params))
     print(f'第二个参数是 {params[1]}')
     print(f'看看python是如何处理可变参数的：{type(params)}')
 test('hello', 'world')
+# 如果收集参数之后还有其他参数要输入
+def test(*params, extra):
+    print("收集参数是：", params)
+    print(f'额外参数是{extra}')
+test(1,2,3,34,extra='hello')
+
+def test(extra, *params):
+    print("收集参数是：", params)
+    print(f'额外参数是{extra}')
+test('hello',1,2,3,34)
+
+num=(1,2,3,4,5)
+print(num)
+print(*num)
+
+# 运行至131页
