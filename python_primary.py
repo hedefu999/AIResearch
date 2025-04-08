@@ -423,8 +423,70 @@ movemove=create()
 movemove([1,0],10) #向左移动10步
 # 这样movemove函数定义时没有对create传参，使用了默认值，这样就能做到pos_x pos_y 封闭不能被其他外部函数修改
 
+# 使用闭包实现一个类似java切面的函数进出日志打印功能
+def log(func):
+    def wrapper():
+        print('start to execute eat function')
+        func()
+        print('eat function executed')
+    return wrapper
+
+def eat():
+    print("还吃！收你们来了")
+
+eatWithLog=log(eat)
+eatWithLog()
+# 使用 python syntactic sugar（语法糖）改进这种写法
+def log(func):
+    def wrapper():
+        print('start to execute eat function')
+        func()
+        print('eat function executed')
+    return wrapper
+@log # 使用@func为函数增强，python自带切面！
+def eat():
+    print('哪吒出局了，继续吃')
+
+eat()
+# 如果 eat方法有参数传递怎么写
+def log(func):
+    def wrapper(name):
+        print('start to execute eat function')
+        func(name)
+        print('eat function executed')
+    return wrapper
+@log
+def eat(name):
+    print(f'吃{name}都吃饱了')
+eat('三文鱼')
+# 如果eat函数有多个入参，增加入参又要修改log函数麻烦，可以将入参定义成收集参数 *name
+# 如果需要嵌套多层装饰
+@buffer
+@log
+def eat(*name):
+    print(len(name))
+
+# -=-=-=-=-=-= 函数式编程 =-=-=-=-=-=-=-=
+# 什么是匿名函数 匿名函数的定义使用
+def ds(x):
+    return 2*x+1
+ds(5)
+g=lambda x: 2*x+1
+g(5)
+# 将lambda表达式用于闭包
+def funcX(x):
+    return lambda y:x*y
+temp=funcX(8)
+temp(5)
+# 匿名函数与普通函数在使用上有什么不同？匿名函数被发明出来的意义何在？
+
+
+
+
+
+
 '''
-# 运行至131页
+# 运行至 6.4.2
 # vscode进行的关闭代码提示的配置，新手阶段不建议使用
 #
 '''
