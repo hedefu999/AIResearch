@@ -339,8 +339,94 @@ def test(extra, *params):
     print(f'额外参数是{extra}')
 test('hello',1,2,3,34)
 
+# 上面使用星号*进行了收集参数声明，用在参数引用时就是解包效果
 num=(1,2,3,4,5)
 print(num)
 print(*num)
 
+name='FishC'
+print(*name)
+list=[2,3,4]
+print(*list)
+
+# 使用双星号 ** 声明收集参数
+# 在函数体中修改全局变量的值，并不会真的改变它
+
+# 如果一定要在函数中修改外部全局变量，可以这样
+count=5
+def my_func():
+    global count
+    count=10
+    print(count)
+my_func()
+count
+
+# 内嵌函数，内部函数可以引用外部函数的局部变量
+def func1():
+    print('func1正在执行')
+    def func2():
+        print('func2正在执行')
+    func2()
+func1()
+func2()
+
+# LEGB原则
+# 先看下代码
+x=120
+print(id(x))
+def funcA():
+    x = 12
+    print(id(x))
+    def funcB():
+        x=11
+        print(id(x))
+    funcB()
+# 这3个x是同一个变量吗，使用id值来判断    
+funcA()
+# 3个id结果并不相同
+
+# LEGB含义：Local-函数内的名字空间；Enclosing function locals-嵌套函数中外部函数的名字空间
+# Global - 函数定义所在模块的名字空间；Builtin - Python内置模块的名字空间
+#  变量查找的顺序依次是 L -> E -> G -> B
+
+# 闭包是啥：在嵌套函数环境下，内部函数引用了外部函数的局部变量，此时内部函数就可以认为是闭包
+def funcX(x):
+    def funcY(y):
+        return x*y
+    return funcY
+
+temp=funcX(8)
+temp(5)
+# 闭包就是函数返回值是一个函数，函数的调用传参是“二维”的
+print(funcX(10)(4))
+
+# 闭包环境下，内部函数无法修改外部函数的局部变量，py3提供了一个关键字nonlocal可以使得这种变量可修改
+def funcX():
+    x=5
+    def funcY():
+        nonlocal x
+        x=x+1
+        return x
+    return funcY
+funcX()()
+# 闭包存在的意义：尽可能避免使用全局变量
+# 闭包允许将函数与其所操作的某些环境/数据关联起来，这样外部函数就为内部函数构成了一个封闭的环境
+# 如下述写法
+def createPlane(pos_x=0, pos_y=0):
+    def move(direction, step):
+        nonlocal pos_x, pos_y
+        new_x = pos_x + direction[0]*step
+        new_y = pos_y + direction[1]*step
+        return new_x,new_y
+    return move
+movemove=create()
+movemove([1,0],10) #向左移动10步
+# 这样movemove函数定义时没有对create传参，使用了默认值，这样就能做到pos_x pos_y 封闭不能被其他外部函数修改
+
+'''
 # 运行至131页
+# vscode进行的关闭代码提示的配置，新手阶段不建议使用
+#
+'''
+
+
