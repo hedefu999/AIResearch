@@ -480,13 +480,47 @@ temp=funcX(8)
 temp(5)
 # 匿名函数与普通函数在使用上有什么不同？匿名函数被发明出来的意义何在？
 
+# 内置函数filter的用法
+temp=filter(None, [1,0,False,True])
+print(temp) # <filter object at 0x7f33cf333910>
+list(temp)
 
+# 一个筛选奇数的过滤器
+def odd(x):
+    return x%2
+temp=filter(odd,range(10))
+list(temp)
 
+# 一行代码实现上述动作
+list(filter(lambda x:x%2, range(10)))
 
+# 映射函数map
+list(map(lambda x:x*2, range(10)))
+list(map(lambda x,y:x+y, [1,2,3],[5,8,7,3]))
 
+# 递归函数实现阶乘
+def factorial(n):
+    if(n == 1):return 1
+    return n*factorial(n-1)
+print(factorial(5))
+
+def fibonacci(n):
+    if(n==1 or n==2): return 1
+    return fibonacci(n-1) + fibonacci(n-2)
+print(fibonacci(6))
+
+# 汉诺塔问题
+def hano(n, x,y,z):
+    if(n==1):
+        print(x,'-->',z)
+        return
+    hano(n-1,x,z,y)
+    print(x,'-->',z)
+    hano(n-1,y,x,z)
+hano(3,'X','Y','Z')
 
 '''
-# 运行至 6.4.2
+# 运行至 7.1
 # vscode进行的关闭代码提示的配置，新手阶段不建议使用
 #
 '''
