@@ -519,8 +519,50 @@ def hano(n, x,y,z):
     hano(n-1,y,x,z)
 hano(3,'X','Y','Z')
 
+# -===-=-=- 字典数据结构 -=-=-=-=--=
+dict={"a":"b","c":"d","e":"f"}
+dict
+'打印字典'
+for key in dict:
+    print(f'key = {key}, value = {dict[key]}')
+
+empty={}
+empty
+type(empty)
+
+# 使用内置函数dict创建字典
+# dict函数需要打包成元组或list传递参数
+dictA=dict((('apple','苹果'),('banana','香蕉'),('orange','橘子')))
+print(dictA)
+dictB=dict([('apple','苹果'),('banana','香蕉'),('orange','橘子')])
+print(dictB)
+dictC=dict(apple='苹果',banana='香蕉',orange='橘子')
+print(dictC)
+# print(dictC['avocado']) # 找不到key还会抛异常
+# dictC['avocado']='牛油果' 向dict中添加元素
+print(dictC)
+
+# dict的key必须不可变，所以可以使用数值、字符串、元组充当，但不可以是list
+dictD={1:'One','2':'TWO',(3,):'元组'}
+print(dictD)
+# dictE={[1,2]:'LIST'} # unhashable type: 'list'
+
+# 其他声明dict的方式
+dictF={'apple':'苹果','banana':'香蕉','orange':'橘子'}
+dictG=dict(zip(['apple','banana','orange'],['苹果','香蕉','橘子']))
+print(dictA==dictB==dictC==dictF==dictG) # True
+
+# -=-=-=-=-=-= dict的内置方法 =-=-=-=-=-=-=
+dict1={}
+dict1.fromkeys((1,2,3)) # {1:None,2:None,3:None}
+dict2={}
+dict2.fromkeys((1,2,3),"Number") # {1: 'Number', 2: 'Number', 3: 'Number'}
+dict3={}
+# dict3.fromkeys((1,2,3),('one','two','three'))
+# dict3.fromkeys((1,2,3),['one','two','three']) fromkeys并不能给每个key分别赋不同的value
+
 '''
-# 运行至 7.1
+# 运行至 7.1.2
 # vscode进行的关闭代码提示的配置，新手阶段不建议使用
 #
 '''
