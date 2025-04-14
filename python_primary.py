@@ -553,13 +553,23 @@ dictG=dict(zip(['apple','banana','orange'],['苹果','香蕉','橘子']))
 print(dictA==dictB==dictC==dictF==dictG) # True
 
 # -=-=-=-=-=-= dict的内置方法 =-=-=-=-=-=-=
+# fromkeys
 dict1={}
+dict1 = dict1.fromkeys(range(5),'赞')
 dict1.fromkeys((1,2,3)) # {1:None,2:None,3:None}
 dict2={}
 dict2.fromkeys((1,2,3),"Number") # {1: 'Number', 2: 'Number', 3: 'Number'}
 dict3={}
 # dict3.fromkeys((1,2,3),('one','two','three'))
 # dict3.fromkeys((1,2,3),['one','two','three']) fromkeys并不能给每个key分别赋不同的value
+
+# keys() values() items()
+dictA=dict((('apple','苹果'),('banana','香蕉'),('orange','橘子')))
+dictA.keys()
+dictA.values()
+dictA.items()
+
+# 此后练习代码转到jupyter notebook
 
 '''
 # 运行至 7.1.2
