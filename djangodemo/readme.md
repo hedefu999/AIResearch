@@ -12,3 +12,50 @@
 
 创建sqlite数据库 `python manage.py migrate`
 使用runserver运行项目 `python manage.py runserver`
+创建webapp  `python manage.py startapp learning_logs`
+
+创建名为0001_initial.py的迁移文件 `python manage.py makemigrations learning_logs` 该文件将在数据库中为模型Topic创建一个表
+
+```bash
+Migrations for 'learning_logs':
+  learning_logs/migrations/0001_initial.py
+    + Create model Topic
+```
+
+应用数据库修改 `python manage.py migrate`
+
+```bash
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, learning_logs, sessions
+Running migrations:
+  Applying learning_logs.0001_initial... OK
+```
+
+创建超级用户 `python manage.py createsuperuser`
+ll_admin/123456
+访问 http://127.0.0.1:8000/admin/
+
+
+修改了models.py 添加了模型后需要再次执行makemigrations
+此时出现 0002_entry.py
+
+## 通过django shell交互式会话调试
+
+`python manage.py shell`
+
+```bash
+>>> from learning_logs.models import Topic
+>>> Topic.objects.all()
+<QuerySet [<Topic: Chess>, <Topic: Rock Climbling>]>
+>>> [item.id for item in Topic.objects.all()]
+[1, 2] # 获取到ID
+
+>>> Topic.objects.get(id=1).text
+'Chess'
+
+# 获取一个Topic关联的所有Entry，注意这里的entry_set前面的entry是用户定义的类型
+>>> Topic.objects.get(id=1).entry_set.all()
+<QuerySet [<Entry: the opening is the first part of the game,roughly 。。。>, <Entry: of course,there are just guidelines,it will be imp。。。>]>
+
+```
+
