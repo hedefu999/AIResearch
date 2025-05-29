@@ -1,0 +1,17 @@
+{% extends 'learning_logs/base.html' %}
+{% block content %}
+<!-- views层已经查询出topic放到context里了，所以这里可以直接使用这个变量 -->
+    <p>Topic: {{topic.text}}</p>
+    <p>Entries:</p>
+    <ul>
+        {%for entry in entries%}
+        <li>
+            <!-- ｜是模板过滤器，在渲染过程中对模板变量的值进行修改 -->
+            <p>{{ entry.date_added|date:'Y H i, M d'}}</p>
+            <p>{{ entry.text|linebreaks }}</p>
+        </li>
+        {% empty %}
+            <li>There are no entries for this topic yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
