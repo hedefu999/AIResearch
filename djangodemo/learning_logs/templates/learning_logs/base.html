@@ -1,0 +1,11 @@
+<p>
+    <!-- 表示跳转到 learning_logs/urls.py中定义的名为index的URL -->
+     <!-- learning_logs是一个命名空间，这个命名空间来自文件 learning_logs/urls.py中定义的app_name -->
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
+    <a href="{% url 'learning_logs:topics' %}">Topics</a>
+</p>
+{% block content %}
+<span>
+    这是模板文件通用内容
+</span>
+{% endblock content %}
