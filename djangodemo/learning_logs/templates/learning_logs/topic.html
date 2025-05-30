@@ -2,6 +2,9 @@
 {% block content %}
 <!-- views层已经查询出topic放到context里了，所以这里可以直接使用这个变量 -->
     <p>Topic: {{topic.text}}</p>
+    <p>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+    </p>
     <p>Entries:</p>
     <ul>
         {%for entry in entries%}

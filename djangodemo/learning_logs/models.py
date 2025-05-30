@@ -11,7 +11,7 @@ class Topic(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.text
+        return self.text + ';'
 
 class Entry(models.Model):
     """学到的有关某个主题的具体知识"""

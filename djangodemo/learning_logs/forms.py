@@ -1,6 +1,6 @@
 # 学习django的表单处理
 from django import forms
-from .models import Topic
+from .models import Topic,Entry
 
 '''
 下面这段代码翻译成java
@@ -23,4 +23,15 @@ class TopicForm(forms.ModelForm):
         model= Topic
         # Topic model中有 text\date_added 两个字段，这里声明只涉及text
         fields = ['text']
-        labels = {'text':''}
+        # label会作为表单label展示
+        labels = {'text':'主题名称: '}
+
+class EntryForm(forms.ModelForm):
+    class Meta:
+        model = Entry
+        fields = ['text']
+        # 给字段指定空白标签
+        labels = {'text':'请输入文本-label'}
+        # 在python代码里控制html显示的表单元素，比较便捷
+        widgets = {'text': forms.Textarea(attrs={'cols':80})}
+
