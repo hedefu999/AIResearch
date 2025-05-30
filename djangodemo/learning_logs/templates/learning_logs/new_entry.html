@@ -1,0 +1,14 @@
+{% extends 'learning_logs/base.html' %}
+{% block content %}
+    <p>
+    <!-- 双大括号 会调用对象的__str__方法 -->
+        <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+    </p>
+    <p> Add a new entry:</p>
+    <form action="{% url 'learning_logs:new_entry' topic.id %}" method="post">
+        {%csrf_token%}
+        <!-- 在views.py中设置过context中的form对象，这里就可以直接使用了 -->
+        {{form.as_div}}
+        <button name="'submit">Add Entry</button>
+    </form>
+{% endblock content %}
