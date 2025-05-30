@@ -20,4 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('learning_logs.urls')),
+    # 匹配所有以accounts开头的URL
+    path('accounts/',include('accounts.urls')),
 ]

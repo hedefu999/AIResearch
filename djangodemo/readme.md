@@ -59,3 +59,9 @@ ll_admin/123456
 
 ```
 
+经过了一系列的topic entry的CRUD功能的实现，现在开始添加账户管理功能
+
+创建一个 accounts webapp `python manage.py startapp accounts`
+
+django提供了user模型定义，无需开发！
+
