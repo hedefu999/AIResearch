@@ -11,5 +11,6 @@
     {% empty %}
         <li>No topics have been added yet.</li>
     {% endfor %}
-</ul>
+</ul><!-- 初始跳转链接和提交表单链接都是 new_topic，所以views中的new_topic方法接收的入参可能为空 -->
+<a href="{% url 'learning_logs:new_topic' %}">Create new topic</a>
 {% endblock content%}

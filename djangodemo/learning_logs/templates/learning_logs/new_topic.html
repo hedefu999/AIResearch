@@ -1,0 +1,12 @@
+{% extends 'learning_logs/base.html' %}
+{% block content %}
+    <p>Add a new topic:</p>
+    <!-- action 告知提交数据到 learning_logs/urls.py 中定义的new_topic上 -->
+    <form action="{% url 'learning_logs:new_topic' %}" method="POST">
+        <!-- 使用模板标签防止攻击者利用表单对服务器进行未经授权的访问——跨站请求伪造 -->
+        {% csrf_token %}
+        <!-- 让 django 自动创建显示表单所需的全部字段，修饰符as_div表示让django将所有表单元素渲染为div元素，更整洁 -->
+        {{ form.as_div }}
+        <button name="submit">Add topic</button>
+    </form>
+{% endblock content %}

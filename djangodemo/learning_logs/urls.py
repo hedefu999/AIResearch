@@ -11,4 +11,6 @@ urlpatterns = [
     path('topics', views.topics, name='topics'),
     # 特定Topic下d所有entry查询页面
     path('topics/<int:topic_id>', views.topic, name='topic'),
+    # 用于添加新主题的网页
+    path('new_topic', views.new_topic, name='new_topic'),
 ]
