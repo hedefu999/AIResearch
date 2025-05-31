@@ -65,3 +65,12 @@ ll_admin/123456
 
 django提供了user模型定义，无需开发！
 
+给Topic添加了用户关联后，需要获取当前的全部用户
+在shell中使用下述命令
+```bash
+from django.contrib.auth.models import User
+User.objects.all()
+```
+这样在迁移数据库时就可以逐个指定关联的用户
+
+如果需要重置数据库 `python manage.py flush` 会重建数据库结构
