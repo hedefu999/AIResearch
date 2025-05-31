@@ -128,3 +128,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 告诉django，用户登录成功后应被重定向到哪里
 LOGIN_REDIRECT_URL = 'learning_logs:index'
 LOGOUT_REDIRECT_URL = 'learning_logs:index'
+# 未登录用户访问@login_required保护的页面，django将重定向到这个地址
+LOGIN_URL = 'accounts:login'
