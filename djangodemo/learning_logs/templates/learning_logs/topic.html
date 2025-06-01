@@ -1,23 +1,28 @@
-{% extends 'learning_logs/base.html' %}
-{% block content %}
+{% extends 'learning_logs/base_bs.html' %}
+
+{% block page_header%}
 <!-- views层已经查询出topic放到context里了，所以这里可以直接使用这个变量 -->
-    <p>Topic: {{topic.text}}</p>
+<h1>{{topic.text}}</h1>
+{% endblock page_header%}
+
+{% block content %}
+    <!-- <p>Topic: {{topic.text}}</p> -->
     <p>
         <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
     </p>
-    <p>Entries:</p>
-    <ul>
-        {%for entry in entries%}
-        <li>
-            <!-- ｜是模板过滤器，在渲染过程中对模板变量的值进行修改 -->
-            <p>{{ entry.date_added|date:'Y H i, M d'}}</p>
-            <p>{{ entry.text|linebreaks }}</p>
-            <p>
-                <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
-            </p>
-        </li>
-        {% empty %}
-            <li>There are no entries for this topic yet.</li>
-        {% endfor %}
-    </ul>
+    {%for entry in entries%}
+        <div class="card mb-3">
+            <!-- 包含时间戳和编辑链接的标题 -->
+            <h4 class="card-header">
+                {{entry.date_added|date:'Y-M-d H:i'}}
+                <small>
+                    <a href="{%url 'learning_logs:edit_entry' entry.id%}">edit Entry</a>
+                </small>
+            </h4>
+            <div class="card-body">{{entry.text|linebreaks}}</div>
+        </div>
+    {%empty%}
+        <p>There are no entries for this topic yet.</p>
+    {%endfor%}
+
 {% endblock content %}

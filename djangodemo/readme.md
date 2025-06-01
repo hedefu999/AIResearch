@@ -59,6 +59,8 @@ ll_admin/123456
 
 ```
 
+## 用户功能
+
 经过了一系列的topic entry的CRUD功能的实现，现在开始添加账户管理功能
 
 创建一个 accounts webapp `python manage.py startapp accounts`
@@ -74,3 +76,9 @@ User.objects.all()
 这样在迁移数据库时就可以逐个指定关联的用户
 
 如果需要重置数据库 `python manage.py flush` 会重建数据库结构
+
+## 界面美化
+
+安装django-bootstrap5: `pip install django-bootstrap5`
+在 settings.py 的 INSTALLED_APPS 中设置 django-bootstrap5
+

@@ -17,6 +17,10 @@ def topics(request):
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
+def about(request):
+    context={}
+    return render(request, 'learning_logs/about.html', context)
+
 @login_required
 def topic(request, topic_id):
     """显示单个主题及其所有条目"""

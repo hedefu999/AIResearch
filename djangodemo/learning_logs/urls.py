@@ -9,6 +9,7 @@ urlpatterns = [
     path('index', views.index, name='index'),
     # 显示所有topic的页面
     path('topics', views.topics, name='topics'),
+    path('about', views.about, name='about'),
     # 特定Topic下d所有entry查询页面
     path('topics/<int:topic_id>', views.topic, name='topic'),
     # 用于添加新主题的网页

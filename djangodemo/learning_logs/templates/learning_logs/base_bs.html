@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>学习笔记</title>
+
+        {% load django_bootstrap5 %}
+        <!-- django-bootstrap5中的定制模板标签，加载实现Bootstrap样式所需的所有CSS文件 -->
+        {% bootstrap_css %}
+        <!-- 启用可能在页面中使用的所有交互行为，如可折叠的导航栏 -->
+        {% bootstrap_javascript %}
+
+    </head>
+    <body>
+        <!-- mb-4 表示 margin-bottom,确保导航栏和页面其他部分之间有一些空白区域 -->
+        <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+                <!-- 窗口太窄时展示下拉列表，隐藏了水平导航栏 -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- 定义导航栏的可折叠部分 -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'learning_logs:topics' %}">Topics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'learning_logs:about'%}">About</a>
+                        </li>
+                    </ul> <!---定义导航栏左侧链接d代码-->
+
+                    <!-- 与账户相关d链接 -->
+                     <!-- ms-auto margin-start-automatic 自动左边距，确保这组链接位于窗口右侧 -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <!-- 注意区分 \{\%\%\} \{\{\}\} 两种标签-->
+                            <span class="navbar-text me-2">Hello, {{user.username}}</span>
+                        </li>
+                        {%else%}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'accounts:register'%}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'accounts:login'%}">Log in</a>
+                        </li>
+                        {% endif %}
+                    </ul><!--与账户相关的链接-->
+                    {% if user.is_authenticated%}
+                    <form action="{% url 'accounts:logout'%} ", method="post">
+                        {%csrf_token%}
+                        <button name="submit" class="btn btn-outline-secondary btn-sm">Log out</button>
+                    </form>
+                    {%endif%}
+                </div> <!--定义导航栏可折叠部分d代码-->
+            </div> <!--定义导航栏容器的代码-->
+        </nav> <!--定义导航栏的代码-->
+
+        <!-- jumbotron 定义了页面d整体结构 -->
+        <!-- 借助bootstrap选择器container对页面元素进行分组 -->
+        <main class="container">
+            <!-- 选择器border-bottom将在page_header块下添加较细的边框 -->
+            <div class="pb-2 mb-2 border-bottom">
+                {% block page_header %}{% endblock page_header%}
+            </div>
+            <div><!--各个页面的block content中的内容会被防止到这个标记区域内-->
+                {%block content%}{%endblock content%}
+            </div>
+        </main>
+
+    </body>
+</html>
