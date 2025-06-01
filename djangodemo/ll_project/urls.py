@@ -16,6 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404
+from django.conf.urls import handler500
+from learning_logs import views
+
+# handler404要放在ll_project目录下才能生效，learning_logs里不可以
+handler404 = views.custom_404_view
+handler500 = views.custom_500_view
+
 # 默认的urls.py位于 ll_project 文件夹中
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -3,9 +3,17 @@ from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+# 不是import Http500，实际上，跳到404页面，import Http404不是必须的，仅仅是因为主动raise了
+from django.http import HttpResponseServerError
+
+# 通用
+def custom_404_view(request, exception=None):
+    return render(request, 'learning_logs/404.html', status=404)
+# status必须是一个int
+def custom_500_view(request, exception=None):
+    return render(request, 'learning_logs/500.html', status=500)
 
 # Create your views here.
-
 def index(request):
     '''学习笔记的主页'''
     return render(request,'learning_logs/index.html')
@@ -75,7 +83,8 @@ def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
     if topic.owner != request.user:
-        raise Http404
+        # 这里专门抛出500，以显示与404的不同
+        raise HttpResponseServerError
 
     if request.method != 'POST':
         # 通过instance指定库里查出来的原始数据对象，通过data设置表单传入的新值
